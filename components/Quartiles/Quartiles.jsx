@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./Quartiles.module.scss";
+import CurrencyFormat from "react-currency-format";
 
-export default function Quartiles({ data }) {
+export default function Quartiles({ data, totals }) {
   const [stickyClass, setStickyClass] = useState("");
 
   useEffect(() => {
@@ -16,10 +17,10 @@ export default function Quartiles({ data }) {
       windowHeight > 150 ? setStickyClass("sticky-nav") : setStickyClass("");
     }
   };
+
+  console.log(totals);
   return (
-    <section
-      className={`${styles.quartiles} ${stickyClass}`}
-    >
+    <section className={`${styles.quartiles} ${stickyClass}`}>
       <div className="d-flex">
         <div>
           <h2>Portfolio structure / repartition</h2>
@@ -37,10 +38,20 @@ export default function Quartiles({ data }) {
           Download
         </a> */}
           <div>
-            <h3>Selected: 70</h3>
+            <h3>Selected: {totals.totalSelected}</h3>
           </div>
           <div>
-            <h3>Total price: <span>$ 1,250,000</span></h3>
+            <h3>
+              Total price:
+              <span>
+                <CurrencyFormat
+                  value={totals.totalPrice}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"$"}
+                />
+              </span>
+            </h3>
           </div>
         </div>
       </div>
