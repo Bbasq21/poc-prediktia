@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styles from "./Quartiles.module.scss";
 import CurrencyFormat from "react-currency-format";
+import { SuggestionItemContext } from "../../context";
 
-export default function Quartiles({ data, totals }) {
+export default function Quartiles({ data }) {
+  const { totals } = useContext(SuggestionItemContext);
+
   const [stickyClass, setStickyClass] = useState("");
 
   useEffect(() => {
@@ -18,7 +21,6 @@ export default function Quartiles({ data, totals }) {
     }
   };
 
-  console.log(totals);
   return (
     <section className={`${styles.quartiles} ${stickyClass}`}>
       <div className="d-flex">
@@ -38,14 +40,14 @@ export default function Quartiles({ data, totals }) {
           Download
         </a> */}
           <div className={styles.Tselect}>
-            <h3>Selected: {totals.totalSelected}</h3>
+            <h3>Selected: {totals?.totalSelected}</h3>
           </div>
           <div className={styles.TPrice}>
             <h3>
-              Total price: 
+              Total price:
               <span>
                 <CurrencyFormat
-                  value={totals.totalPrice}
+                  value={totals?.totalPrice}
                   displayType={"text"}
                   thousandSeparator={true}
                   prefix={"$"}

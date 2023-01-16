@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Layout from "../components/Layout";
 import styles from "../styles/What.module.scss";
 import { useRouter } from "next/router";
@@ -11,19 +11,19 @@ import "swiper/css";
 import "swiper/css/navigation";
 import SwiperCore, { Navigation } from "swiper";
 import CurrencyFormat from "react-currency-format";
+import { SuggestionItemContext } from "../context";
 
 SwiperCore.use([Navigation]);
 
 export default function What() {
+  const { updateTotals, initSuggestions, updateSuggestions, suggestions } =
+    useContext(SuggestionItemContext);
   const router = useRouter();
-
   const [quartiles, setQuartiles] = useState();
-  const [suggestions, setSuggestions] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [suggestionsSelected, setSuggestionsSelected] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [hasMoreItems, setHasMoreItems] = useState(true);
-  const [totals, setTotals] = useState({ totalSelected: 0, totalPrice: 0 });
 
   useEffect(() => {
     fetch("https://api.prediktia.io/quartiles")
@@ -35,7 +35,7 @@ export default function What() {
     fetch("https://api.prediktia.io/suggestions?page=1&size=50")
       .then((res) => res.json())
       .then((response) => {
-        setSuggestions(response.items);
+        initSuggestions(response.items);
         setIsLoading(false);
       });
   }, []);
@@ -69,6 +69,7 @@ export default function What() {
     instock_sku,
     instock_rank
   ) => {
+    console.log(suggestionsSelected);
     const isInstockSkuSelected = suggestionsSelected?.some(
       (elem) => elem.instock_sku === instock_sku
     );
@@ -109,25 +110,7 @@ export default function What() {
       ];
     }
     setSuggestionsSelected(newSuggestionsSelected);
-    setTotals(calculateTotals(newSuggestionsSelected));
-  };
-
-  const calculateTotals = (suggestions) => {
-    const totalSelected = 0;
-    const totalPrice = 0;
-    suggestions?.forEach((suggestion) => {
-      let totalSku = 0;
-      totalSku = suggestion.selected.reduce(
-        (a, b) => ({
-          price: a.price + b.price,
-        }),
-        { price: 0 }
-      );
-      totalPrice = totalPrice + totalSku.price;
-      totalSelected = totalSelected + suggestion.selected.length;
-    });
-
-    return { totalSelected, totalPrice };
+    updateTotals(newSuggestionsSelected);
   };
 
   const onClickProduct = (
@@ -166,7 +149,7 @@ export default function What() {
     )
       .then((res) => res.json())
       .then((response) => {
-        setSuggestions((prev) => [...prev, ...response.items]);
+        updateSuggestions(...response.items);
         setIsLoading(false);
         if (response?.items.length === 0) setHasMoreItems(false);
       });
@@ -233,7 +216,7 @@ export default function What() {
         <>
           <div className="container">
             <div className="row">
-              <Quartiles data={quartiles} totals={totals} />
+              <Quartiles data={quartiles} />
             </div>
           </div>
 
