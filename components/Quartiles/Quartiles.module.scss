@@ -11,13 +11,40 @@
   padding: 16px;
   z-index: 20;
 
-  h2 {
-    color: $gray5;
-    font-family: $Figtree;
-    font-size: remcalc(24px);
-    font-weight: 700;
-    line-height: 29px;
-    margin: 0 0 16px;
+  .TitleQ{
+    width: 70%;
+    flex: 0 0 auto;
+
+    h2 {
+      color: $gray5;
+      font-family: $Figtree;
+      font-size: remcalc(24px);
+      font-weight: 700;
+      line-height: 29px;
+      margin: 0 0 16px;
+    }
+  }
+  .dataInfo{
+    width: 30%;
+    display: flex;
+    flex: 0 0 auto;
+
+    > div{
+      width: 50%;
+
+      h3{
+        color: $gray5;
+        font-family: $Figtree;
+        font-size: remcalc(20px);
+        line-height: 24px;
+        margin: 0 0 16px;
+
+        span{
+          color: $DarkGreen;
+          margin-left: 5px;
+        }
+      }
+    }
   }
   .download {
     width: fit-content;

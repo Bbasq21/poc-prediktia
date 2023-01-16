@@ -22,10 +22,10 @@ export default function Quartiles({ data, totals }) {
   return (
     <section className={`${styles.quartiles} ${stickyClass}`}>
       <div className="d-flex">
-        <div>
+        <div className={styles.TitleQ}>
           <h2>Portfolio structure / repartition</h2>
         </div>
-        <div className="d-flex">
+        <div className={styles.dataInfo}>
           {/* <a href="prediktia.xlsx" className={styles.download} download>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 383.31 384">
             <g id="Layer_2" data-name="Layer 2">
@@ -37,12 +37,12 @@ export default function Quartiles({ data, totals }) {
           </svg>
           Download
         </a> */}
-          <div>
+          <div className={styles.Tselect}>
             <h3>Selected: {totals.totalSelected}</h3>
           </div>
-          <div>
+          <div className={styles.TPrice}>
             <h3>
-              Total price:
+              Total price: 
               <span>
                 <CurrencyFormat
                   value={totals.totalPrice}
