@@ -17,7 +17,7 @@ export const reducer = (state, action) => {
     case actions.UPDATE_SUGGESTIONS:
       return {
         ...state,
-        suggestions: [...suggestions, action.payload],
+        suggestions: [...state.suggestions, action.payload],
       };
     default:
       return state;
