@@ -12,8 +12,15 @@
   z-index: 20;
 
   .TitleQ{
-    width: 70%;
+    width: 50%;
     flex: 0 0 auto;
+
+    @media (min-width: 1280px) {
+      width: 60%;
+    }
+    @media (min-width: 1650px){
+      width: 70%;
+    }
 
     h2 {
       color: $gray5;
@@ -25,9 +32,16 @@
     }
   }
   .dataInfo{
-    width: 30%;
+    width: 50%;
     display: flex;
     flex: 0 0 auto;
+
+    @media (min-width: 1280px) {
+      width: 40%;
+    }
+    @media (min-width: 1650px){
+      width: 30%;
+    }
 
     > div{
       width: 50%;

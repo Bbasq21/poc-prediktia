@@ -44,7 +44,7 @@ export default function Quartiles({ data }) {
           </div>
           <div className={styles.TPrice}>
             <h3>
-              Total price:
+              Total cost:
               <span>
                 <CurrencyFormat
                   value={totals?.totalPrice}

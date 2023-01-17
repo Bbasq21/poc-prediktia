@@ -69,7 +69,6 @@ export default function What() {
     instock_sku,
     instock_rank
   ) => {
-    console.log(suggestionsSelected);
     const isInstockSkuSelected = suggestionsSelected?.some(
       (elem) => elem.instock_sku === instock_sku
     );
